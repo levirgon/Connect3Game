@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Connect 3</string>
+    <string name="mother">mother</string>
+    <string name="father">Father</string>
+    <string name="cross">Cross</string>
+    <string name="nought">Nought</string>
+</resources>
