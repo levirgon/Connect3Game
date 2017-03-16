@@ -4,4 +4,10 @@
     <string name="father">Father</string>
     <string name="cross">Cross</string>
     <string name="nought">Nought</string>
+    <string name="player">Player</string>
+    <string name="system">System</string>
+    <string name="easy">EASY</string>
+    <string name="medium">Medium</string>
+    <string name="pro">Pro</string>
+    <string name="unbeatable">Unbeatable</string>
 </resources>

@@ -6,9 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private int click = 0;
     private Random random;
     private GridLayout grid;
+    private LinearLayout linearLayout;
     private ArrayList<Integer> remainingMoves;
 
     private int crossScore = 0;
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
         grid = (GridLayout) findViewById(R.id.gridLayout);
+        linearLayout = (LinearLayout) findViewById(R.id.linearScoreLayout);
         random = new Random();
 
         remainingMoves = new ArrayList<>();
@@ -118,18 +120,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 grid.setVisibility(View.INVISIBLE);
+                linearLayout.setVisibility(View.INVISIBLE);
 
-                Button playAgain = (Button) findViewById(R.id.playAgainButton);
-
-                if (playAgain.getVisibility() == View.INVISIBLE) {
-                    playAgain.setVisibility(View.VISIBLE);
-                }
+                LinearLayout buttons = (LinearLayout) findViewById(R.id.buttonsCarrier);
+                buttons.setVisibility(View.VISIBLE);
 
             }
         }.start();
 
 
     }
+
+    private int difficulty = 0;
 
     /**
      * @param view the play again button.
@@ -138,16 +140,20 @@ public class MainActivity extends AppCompatActivity {
      */
     public void playAgain(View view) {
 
-        Button playAgain = (Button) findViewById(R.id.playAgainButton);
-        playAgain.setVisibility(View.INVISIBLE);
+        difficulty = Integer.parseInt(view.getTag().toString());
+
+        LinearLayout buttons = (LinearLayout) findViewById(R.id.buttonsCarrier);
+        buttons.setVisibility(View.INVISIBLE);
 
         click = 0;
         moves = 0;
         tags.clear();
         noughts.clear();
         cross.clear();
-        //clicked = false;
+
         grid.setVisibility(View.VISIBLE);
+        linearLayout.setVisibility(View.VISIBLE);
+
         remainingMoves.clear();
 
         remainingMoves.add(0);
@@ -186,20 +192,20 @@ public class MainActivity extends AppCompatActivity {
         Log.v("msg", "system move called");
         int n;
         int r;
-        if (moves > 3 && (n = canWin(noughts)) != -1) {
+        if (moves > 3 && (n = canWin(noughts)) != -1 && difficulty > 1) {
 
             r = n;
 
-        } else if (moves > 2 && (n = canWin(cross)) != -1) {
+        } else if (moves > 2 && (n = canWin(cross)) != -1 && difficulty > 1) {
 
             r = n;
 
-        } else if (!tags.contains(4)) {
+        } else if (!tags.contains(4) && difficulty > 2) {
 
             r = 4;
             gotCore = true;
 
-        } else if (!tags.containsAll(corners) && crossScore > 4) {
+        } else if (!tags.containsAll(corners) && difficulty > 3) {
 
             r = corners.get(random.nextInt(4));
             while (tags.contains(r)) {

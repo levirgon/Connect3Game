@@ -9,36 +9,13 @@
     android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"
     tools:context="com.example.connect3.MainActivity">
 
-    <Button
-        android:id="@+id/playAgainButton"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:background="@drawable/redo"
-        android:minWidth="48dp"
-        android:onClick="playAgain"
-        android:visibility="invisible"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginRight="16dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="16dp" />
-
     <LinearLayout
-        android:id="@+id/linearLayout2"
+        android:id="@+id/linearScoreLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
         android:background="@color/colorPrimaryDark"
         android:orientation="horizontal"
+        android:visibility="invisible"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -52,7 +29,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="16dp"
-            android:text="Player" />
+            android:text="@string/player" />
 
         <TextView
             android:id="@+id/playerScore"
@@ -70,7 +47,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="16dp"
-            android:text="System" />
+            android:text="@string/system" />
 
         <TextView
             android:id="@+id/systemScore"
@@ -87,85 +64,163 @@
         android:id="@+id/gridLayout"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/board"
         android:columnCount="3"
-        android:rowCount="3"
         android:foregroundGravity="center"
+        android:rowCount="3"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        android:background="@drawable/board">
+        app:layout_constraintTop_toBottomOf="@+id/linearScoreLayout">
 
         <ImageView
             android:id="@+id/imageView0"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:onClick="dropIn"
             android:tag="0"
-            android:onClick="dropIn" />
+            tools:ignore="ContentDescription" />
 
         <ImageView
             android:id="@+id/imageView1"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:onClick="dropIn"
             android:tag="1"
-            android:onClick="dropIn" />
+            tools:ignore="ContentDescription" />
 
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:onClick="dropIn"
             android:tag="2"
-            android:onClick="dropIn" />
+            tools:ignore="ContentDescription" />
 
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:onClick="dropIn"
             android:tag="3"
-            android:onClick="dropIn" />
+            tools:ignore="ContentDescription" />
 
         <ImageView
             android:id="@+id/imageView4"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:onClick="dropIn"
             android:tag="4"
-            android:onClick="dropIn" />
+            tools:ignore="ContentDescription" />
 
         <ImageView
             android:id="@+id/imageView5"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:onClick="dropIn"
             android:tag="5"
-            android:onClick="dropIn" />
+            tools:ignore="ContentDescription" />
 
         <ImageView
             android:id="@+id/imageView6"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:onClick="dropIn"
             android:tag="6"
-            android:onClick="dropIn" />
+            tools:ignore="ContentDescription" />
 
         <ImageView
             android:id="@+id/imageView7"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:onClick="dropIn"
             android:tag="7"
-            android:onClick="dropIn" />
+            tools:ignore="ContentDescription" />
 
         <ImageView
             android:id="@+id/imageView8"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:tag="8"
             android:contentDescription=""
-            tools:ignore="ContentDescription"
-            android:onClick="dropIn" />
+            android:onClick="dropIn"
+            android:tag="8"
+            tools:ignore="ContentDescription" />
     </GridLayout>
+
+    <LinearLayout
+        android:id="@+id/buttonsCarrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.39">
+
+        <Button
+            android:id="@+id/easyButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@android:color/holo_green_dark"
+            android:onClick="playAgain"
+            android:tag="1"
+            android:padding="8dp"
+            android:text="@string/easy"
+            android:visibility="visible"
+            tools:layout_editor_absoluteX="36dp"
+            tools:layout_editor_absoluteY="216dp" />
+
+        <Button
+            android:id="@+id/mediumButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@android:color/holo_blue_dark"
+            android:onClick="playAgain"
+            android:tag="2"
+            android:padding="8dp"
+            android:text="@string/medium"
+            android:visibility="visible"
+            tools:layout_editor_absoluteX="36dp"
+            tools:layout_editor_absoluteY="256dp" />
+
+        <Button
+            android:id="@+id/proButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@android:color/holo_purple"
+            android:onClick="playAgain"
+            android:tag="3"
+            android:padding="8dp"
+            android:text="@string/pro"
+            android:visibility="visible"
+            tools:layout_editor_absoluteX="136dp"
+            tools:layout_editor_absoluteY="96dp" />
+
+        <Button
+            android:id="@+id/unbeatableButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:padding="8dp"
+            android:background="@android:color/holo_red_dark"
+            android:onClick="playAgain"
+            android:tag="4"
+            android:text="@string/unbeatable"
+            android:visibility="visible"
+            tools:layout_editor_absoluteX="124dp"
+            tools:layout_editor_absoluteY="144dp" />
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
