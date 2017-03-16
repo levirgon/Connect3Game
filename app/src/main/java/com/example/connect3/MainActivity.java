@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static java.util.Arrays.asList;
+
 public class MainActivity extends AppCompatActivity {
     private int played = 0;
     private boolean gameOn = true;
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private int click = 0;
     private Random random;
     private GridLayout grid;
+    private ArrayList<Integer> remainingMoves;
 
     private int crossScore = 0;
     private int noughtScore = 0;
@@ -64,6 +67,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         grid = (GridLayout) findViewById(R.id.gridLayout);
         random = new Random();
+
+        remainingMoves = new ArrayList<>();
+        remainingMoves.add(0);
+        remainingMoves.add(1);
+        remainingMoves.add(2);
+        remainingMoves.add(3);
+        remainingMoves.add(4);
+        remainingMoves.add(5);
+        remainingMoves.add(6);
+        remainingMoves.add(7);
+        remainingMoves.add(8);
     }
 
     /**
@@ -129,11 +143,22 @@ public class MainActivity extends AppCompatActivity {
 
         click = 0;
         moves = 0;
-        tags = new ArrayList<>();
-        noughts = new ArrayList<>();
-        cross = new ArrayList<>();
+        tags.clear();
+        noughts.clear();
+        cross.clear();
         //clicked = false;
         grid.setVisibility(View.VISIBLE);
+        remainingMoves.clear();
+
+        remainingMoves.add(0);
+        remainingMoves.add(1);
+        remainingMoves.add(2);
+        remainingMoves.add(3);
+        remainingMoves.add(4);
+        remainingMoves.add(5);
+        remainingMoves.add(6);
+        remainingMoves.add(7);
+        remainingMoves.add(8);
 
 
         for (int i = 0; i < grid.getChildCount(); i++) {
@@ -153,9 +178,12 @@ public class MainActivity extends AppCompatActivity {
      * logic for making moves based on users moves.
      * calls the executeMove() method.
      */
+    boolean gotCore = false;
+    ArrayList<Integer> corners = new ArrayList<>(asList(0, 2, 6, 8));
+
 
     private void systemMove() {
-        Log.v("msg","system move called");
+        Log.v("msg", "system move called");
         int n;
         int r;
         if (moves > 3 && (n = canWin(noughts)) != -1) {
@@ -167,16 +195,31 @@ public class MainActivity extends AppCompatActivity {
             r = n;
 
         } else if (!tags.contains(4)) {
+
             r = 4;
+            gotCore = true;
 
-        } else {
-            r = random.nextInt(8);
+        } else if (!tags.containsAll(corners) && crossScore > 4) {
 
-
+            r = corners.get(random.nextInt(4));
             while (tags.contains(r)) {
-                r = random.nextInt(8);
+                r = corners.get(random.nextInt(4));
 
             }
+
+        } else {
+
+            r = random.nextInt(8);
+
+            Log.v("random generated ", String.valueOf(r));
+
+            while (tags.contains(r)) {
+
+                r = remainingMoves.get(random.nextInt(remainingMoves.size()));
+
+            }
+            Log.v("random confirmed", String.valueOf(r));
+
         }
 
 
@@ -209,6 +252,8 @@ public class MainActivity extends AppCompatActivity {
             Log.v("valid", "move");
             moves++;
             tags.add(tag);
+            Integer t = tag;
+            remainingMoves.remove(t);
 
             box.setTranslationY(-1000f);
 
